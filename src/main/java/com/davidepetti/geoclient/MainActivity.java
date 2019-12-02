@@ -42,6 +42,7 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+
     private static final int LOCATION_PERMISSION_CODE = 1;
     private int currentInterval;
 

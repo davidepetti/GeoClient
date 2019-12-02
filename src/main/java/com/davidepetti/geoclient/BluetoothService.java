@@ -52,7 +52,7 @@ public class BluetoothService extends Service {
                 }
                 boolean discoveryStarted = bluetoothAdapter.startDiscovery();
                 Log.v(LOG_TAG, "Started: " + discoveryStarted);
-                if (!discoveryStarted) {
+                if (!discoveryStarted && btRequested) {
                     bluetoothAdapter.disable();
                     restart = true;
                 }
@@ -100,6 +100,7 @@ public class BluetoothService extends Service {
                     }
                 } else if (state == BluetoothAdapter.STATE_OFF && restart) {
                     bluetoothAdapter.enable();
+                    btRequested = true;
                 }
             }
         }
