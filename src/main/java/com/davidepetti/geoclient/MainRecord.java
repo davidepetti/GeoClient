@@ -4,8 +4,6 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.util.UUID;
-
 @Entity(tableName = "mainrecord_table")
 public class MainRecord {
 

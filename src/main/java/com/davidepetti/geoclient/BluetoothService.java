@@ -1,7 +1,5 @@
 package com.davidepetti.geoclient;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -11,12 +9,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.IBinder;
-import android.os.SystemClock;
 import android.util.Log;
 
 import java.util.ArrayList;
-
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class BluetoothService extends Service {
 

@@ -1,6 +1,5 @@
 package com.davidepetti.geoclient;
 
-import android.app.IntentService;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -11,13 +10,12 @@ import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.ActivityRecognitionClient;
 import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.DetectedActivity;
-
-import androidx.annotation.Nullable;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class ActivityRecService extends Service {
 

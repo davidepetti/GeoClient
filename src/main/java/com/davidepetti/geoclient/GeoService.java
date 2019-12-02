@@ -1,7 +1,6 @@
 package com.davidepetti.geoclient;
 
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -9,9 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.os.SystemClock;
-import androidx.core.app.NotificationCompat;
-
-import static com.davidepetti.geoclient.App.PRIMARY_CHANNEL_ID;
 
 public class GeoService extends Service {
 

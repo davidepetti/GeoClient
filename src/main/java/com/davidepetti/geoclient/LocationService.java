@@ -1,23 +1,18 @@
 package com.davidepetti.geoclient;
 
 import android.Manifest;
-import android.app.AlarmManager;
-import android.app.IntentService;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.IBinder;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
-
-import android.os.IBinder;
-import android.os.SystemClock;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;

@@ -5,7 +5,6 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
 
 @Database(entities = {Geodata.class, CurrentActivity.class, ForegroundApp.class, UsageData.class,
                       BluetoothData.class, MainRecord.class}, version = 1, exportSchema = false)
