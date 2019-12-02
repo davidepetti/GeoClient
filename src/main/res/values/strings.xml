@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">GeoClient</string>
+    <string name="updates_interval">Updates interval:</string>
+    <string name="not_set">Not set</string>
+    <string name="collect_data">Collect Data</string>
+    <string name="stop_collecting">Stop Collecting</string>
+    <string name="minutes">%1$d min</string>
+    <string name="privacy_message">Questa applicazione raccoglie alcuni dati personali dei propri utenti.\n\n
+    <b>Titolare del trattamento dei dati:</b> \n Davide Petti\n\n
+    <b>Indirizzo email del titolare:</b> \n petti.davide\@gmail.com\n\n
+    <big><b>Tipologie di dati raccolti</b></big>\n\n
+        Fra i dati personali raccolti da questa applicazione ed elencati in questa pagina di <i>privacy policy</i> ci sono:\n\n
+        <li>Posizione</li>\n
+        <li>Dati di utilizzo delle app</li>\n
+        <li>Riconoscimento dell\'attivita\'</li>\n
+        <li>Indirizzi MAC Bluetooth</li>\n\n
+        I dati personali sono raccolti automaticamente durante l\'uso di questa applicazione. Tutti i dati richiesti da questa applicazione sono obbligatori e, in mancanza del loro conferimento, potrebbe essere impossibile per questa applicazione fornire il servizio.\n
+        L\'utente si assume la responsabilità dei dati personali di terzi pubblicati o condivisi mediante questa applicazione e garantisce di avere il diritto di comunicarli o diffonderli, liberando il titolare da qualsiasi responsabilità verso terzi.\n
+        Il titolare tratta i dati personali degli utenti adottando le opportune misure di sicurezza volte ad impedire l\'accesso, la divulgazione, la modifica o la distruzione non autorizzate dei dati personali. Il trattamento viene effettuato mediante strumenti informatici, con modalita\' organizzative e con logiche strettamente correlate alle finalita\' indicate. Oltre al titolare, in alcuni casi, potrebbero avere accesso ai dati categorie di incaricati coinvolti nel progetto
+        nominati anche, se necessario, responsabili del trattamento da parte del titolare. L\'elenco aggiornato dei responsabili potra\' sempre essere richiesto al titolare del trattamento.\n\n
+    <big><b>Periodo di conservazione</b></big>\n\n
+        I dati sono trattati e conservati per il tempo richiesto dalle finalita\' per le quali sono stati raccolti.\n
+        L\'utente puo\' ottenere ulteriori informazioni in merito in qualunque momento contattando il titolare.\n\n
+    <big><b>Finalita\' del Trattamento dei dati raccolti</b></big>\n\n
+        I dati dell\'utente sono raccolti per consentire al titolare di lavorare al proprio progetto di realizzazione di una piattaforma di Crowdsensing e di ottenere
+        risultati utili nell\'ambito della Context Awareness.\n\n
+    <big><b>Diritti dell\'Utente</b></big>\n\n
+        Gli Utenti possono esercitare determinati diritti con riferimento ai dati trattati dal titolare.\n\n
+        In particolare, l\'utente ha il diritto di:\n\n
+        <li>Accedere ai propri dati. L\'utente ha diritto ad ottenere informazioni sui dati trattati dal Titolare, su detereminati aspetti del trattamento ed a ricevere una copia dei dati trattati.</li>\n\n
+        <li>Ottenere la cancellazione o rimozione dei propri dati personali. Quando ricorrono determinate condizioni, l\'utente può richiedere la cancellazione dei propri dati da parte del titolare.</li>\n\n
+        <li>Ricevere i propri dati o farli trasferire ad altro titolare. L\'utente ha diritto di ricevere i propri dati in formato strutturato, di uso comune e leggibile da dispositivo automatico e, ove tecnicamente fattibile, di ottenerne il trasferimento senza ostacoli ad un altro titolare. Questa disposizione e\' applicabile quando i dati sono trattati con strumenti automatizzati ed il trattamento e\' basato sul consenso dell\'utente</li>\n
+    </string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+</resources>
