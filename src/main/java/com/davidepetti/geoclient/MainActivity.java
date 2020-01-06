@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Process;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.text.InputType;
 import android.util.Log;
@@ -47,7 +48,11 @@ public class MainActivity extends AppCompatActivity {
     private int currentInterval;
 
     private AlarmManager alarmMgr;
-    private PendingIntent alarmIntent;
+    private PendingIntent firebaseIntent;
+
+    private TextView deliveryTimeTextView;
+
+    private long scheduledDelivery = AlarmManager.INTERVAL_HALF_HOUR;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,12 +103,54 @@ public class MainActivity extends AppCompatActivity {
                 // Set auto send
                 setEmailAutoSend(item.isChecked());
                 return true;
+            case R.id.half_hour:
+                // Change textview value
+                // Cancel old alarm
+                // Set new alarm
+                // Salvare nelle shared preferences il valore
+                scheduledDelivery = AlarmManager.INTERVAL_HALF_HOUR;
+                formatDeliveryTextView(scheduledDelivery);
+                setDbDelivery(scheduledDelivery);
+                return true;
+            case R.id.hour:
+                scheduledDelivery = AlarmManager.INTERVAL_HOUR;
+                formatDeliveryTextView(scheduledDelivery);
+                setDbDelivery(scheduledDelivery);
+                return true;
+            case R.id.day:
+                scheduledDelivery = AlarmManager.INTERVAL_DAY;
+                formatDeliveryTextView(scheduledDelivery);
+                setDbDelivery(scheduledDelivery);
+                return true;
             case R.id.action_gdpr:
                 showGDPR();
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setDbDelivery(long interval) {
+        if (alarmMgr != null) {
+            alarmMgr.cancel(firebaseIntent);
+        }
+        Intent intent = new Intent(this, FirebaseAlarmReceiver.class);
+        firebaseIntent = PendingIntent.getBroadcast(this, 18, intent, 0);
+
+        alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
+                SystemClock.elapsedRealtime() + interval,
+                interval, firebaseIntent);
+    }
+
+    private void formatDeliveryTextView(long interval) {
+        if (interval == AlarmManager.INTERVAL_HALF_HOUR) {
+            deliveryTimeTextView.setText("Scheduled delivery: Every half hour");
+        } else if (interval == AlarmManager.INTERVAL_HOUR) {
+            deliveryTimeTextView.setText("Scheduled delivery: Every hour");
+        } else if (interval == AlarmManager.INTERVAL_DAY){
+            deliveryTimeTextView.setText("Scheduled delivery: Once a day");
+        }
     }
 
     @Override
@@ -114,9 +161,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        deliveryTimeTextView = findViewById(R.id.dbDelivery);
+
+        SharedPreferences sharedPref = getSharedPreferences("com.davidepetti.geoclient.DELIVERY_PREFERENCE_FILE", Context.MODE_PRIVATE);
+        scheduledDelivery = sharedPref.getLong("interval", 0);
+        if (scheduledDelivery == 0) {
+            scheduledDelivery = AlarmManager.INTERVAL_HALF_HOUR;
+        }
+        formatDeliveryTextView(scheduledDelivery);
+
         PrivacyDialogFragment dialogFragment = new PrivacyDialogFragment();
 
-        SharedPreferences sharedPref = getSharedPreferences("com.davidepetti.geoclient.DIALOG_PREFERENCE_FILE", Context.MODE_PRIVATE);
+        sharedPref = getSharedPreferences("com.davidepetti.geoclient.DIALOG_PREFERENCE_FILE", Context.MODE_PRIVATE);
         boolean agreed = sharedPref.getBoolean("agreed", false);
 
         if (!agreed) {
@@ -130,10 +186,28 @@ public class MainActivity extends AppCompatActivity {
             requestLocationPermission();
         }
 
+        sharedPref = getSharedPreferences("com.davidepetti.geoclient.SENDING_TIME_PREFERENCE_FILE", Context.MODE_PRIVATE);
+        String time = sharedPref.getString("lastSending", "-");
+        TextView lastSending = findViewById(R.id.sendingTime);
+        lastSending.setText(lastSending.getText() + time);
+
+        sharedPref = getSharedPreferences("com.davidepetti.geoclient.MAINRECORD_ID_PREFERENCE_FILE", Context.MODE_PRIVATE);
+        long lastId = sharedPref.getLong("currentId", -1);
+        String numRecord;
+        if (lastId == -1) {
+            numRecord = "-";
+        } else {
+            numRecord = String.valueOf(lastId);
+        }
+        TextView recordNumber = findViewById(R.id.recordNumber);
+        recordNumber.setText(recordNumber.getText() + numRecord);
+
         Button buttonCollect = findViewById(R.id.buttonCollect);
         buttonCollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setDbDelivery(scheduledDelivery);
+
                 Intent serviceCheckerIntent = new Intent(MainActivity.this, ServiceChecker.class);
                 ContextCompat.startForegroundService(MainActivity.this, serviceCheckerIntent);
 
@@ -200,23 +274,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        SharedPreferences sharedPref = getSharedPreferences("com.davidepetti.geoclient.SENDING_TIME_PREFERENCE_FILE", Context.MODE_PRIVATE);
-        String time = sharedPref.getString("lastSending", "-");
-        TextView lastSending = findViewById(R.id.sendingTime);
-        lastSending.setText(lastSending.getText() + time);
-
-        sharedPref = getSharedPreferences("com.davidepetti.geoclient.MAINRECORD_ID_PREFERENCE_FILE", Context.MODE_PRIVATE);
-        long lastId = sharedPref.getLong("currentId", -1);
-        String numRecord;
-        if (lastId == -1) {
-            numRecord = "-";
-        } else {
-            numRecord = String.valueOf(lastId);
-        }
-        TextView recordNumber = findViewById(R.id.recordNumber);
-        recordNumber.setText(recordNumber.getText() + numRecord);
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences sharedPref = getApplicationContext().
+                getSharedPreferences("com.davidepetti.geoclient.DELIVERY_PREFERENCE_FILE", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putLong("delivery", scheduledDelivery);
+        editor.commit();
     }
 
     private void requestLocationPermission() {
@@ -349,7 +413,6 @@ public class MainActivity extends AppCompatActivity {
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         }
-
     }
 
     private void setEmailAutoSend(boolean checked) {
@@ -357,7 +420,7 @@ public class MainActivity extends AppCompatActivity {
             setName();
             alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             Intent intent = new Intent(this, EmailAlarmReceiver.class);
-            alarmIntent = PendingIntent.getBroadcast(this, 24, intent, 0);
+            firebaseIntent = PendingIntent.getBroadcast(this, 24, intent, 0);
 
             Calendar calendar = Calendar.getInstance();
             //.calendar.setTimeInMillis(System.currentTimeMillis());
@@ -366,10 +429,10 @@ public class MainActivity extends AppCompatActivity {
             calendar.set(Calendar.SECOND, 0);
 
             alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    AlarmManager.INTERVAL_DAY, alarmIntent);
+                    AlarmManager.INTERVAL_DAY, firebaseIntent);
         } else {
             if (alarmMgr != null) {
-                alarmMgr.cancel(alarmIntent);
+                alarmMgr.cancel(firebaseIntent);
             }
         }
     }

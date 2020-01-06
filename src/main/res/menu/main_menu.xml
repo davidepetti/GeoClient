@@ -23,6 +23,20 @@
         app:showAsAction="never"></item>
 
     <item
+        android:id="@+id/action_sending_time"
+        android:title="Schedule DB delivery"
+        app:showAsAction="never">
+        <menu>
+            <item android:id="@+id/half_hour"
+                android:title="HALF_HOUR"/>
+            <item android:id="@+id/hour"
+                android:title="HOUR"/>
+            <item android:id="@+id/day"
+                android:title="DAY"/>
+        </menu>
+    </item>
+
+    <item
         android:id="@+id/action_autosend"
         android:title="Send Automatically"
         app:showAsAction="never"

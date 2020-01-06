@@ -29,6 +29,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Last data sending: "/>
+
+        <TextView
+            android:id="@+id/dbDelivery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Scheduled delivery: "/>
     </LinearLayout>
 
     <LinearLayout

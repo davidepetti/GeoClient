@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "878913038923",
+    "firebase_url": "https://partial-observations.firebaseio.com",
+    "project_id": "partial-observations",
+    "storage_bucket": "partial-observations.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878913038923:android:0551380745277ebbc43bce",
+        "android_client_info": {
+          "package_name": "com.davidepetti.geoclient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878913038923-ee2pmav84viu5src3b0h1ei6vams2inm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5lYQH073HkpmGCf9IgKYYbCoiLer_egA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878913038923-ee2pmav84viu5src3b0h1ei6vams2inm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
